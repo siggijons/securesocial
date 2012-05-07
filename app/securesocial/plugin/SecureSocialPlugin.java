@@ -17,19 +17,18 @@
 */
 package securesocial.plugin;
 
-import java.lang.reflect.Modifier;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import play.Logger;
 import play.Play;
 import play.PlayPlugin;
-import securesocial.provider.DefaultUserService;
 import securesocial.provider.IdentityProvider;
 import securesocial.provider.ProviderRegistry;
 import securesocial.provider.ProviderType;
 import securesocial.provider.UserService;
+
+import java.lang.reflect.Modifier;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SecureSocialPlugin extends PlayPlugin {
     private static final String SECURESOCIAL_PROVIDERS = "securesocial.providers";
@@ -76,8 +75,8 @@ public class SecureSocialPlugin extends PlayPlugin {
         int classesFound = classes.size();
         if ( classesFound == 1 ) {
             // use the default implementation
-            Logger.info("Using default user service");
-            service = new DefaultUserService();
+            Logger.error("No user service found");
+            throw new RuntimeException("No custom user service found");
         } else if ( classesFound == 2 ) {
             // a custom implementation was found.  use it instead of the default
             Class clazz = classes.get(0);
